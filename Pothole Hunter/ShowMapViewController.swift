@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  SecondViewController.swift
 //  Pothole Hunter
 //
 //  Created by Brijesh Patel on 2017-03-13.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class ShowMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

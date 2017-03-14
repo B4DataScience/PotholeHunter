@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		AD1FF1721E77670F00C46614 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1711E77670F00C46614 /* AppDelegate.swift */; };
-		AD1FF1741E77670F00C46614 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1731E77670F00C46614 /* FirstViewController.swift */; };
-		AD1FF1761E77670F00C46614 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1751E77670F00C46614 /* SecondViewController.swift */; };
+		AD1FF1741E77670F00C46614 /* ShowCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1731E77670F00C46614 /* ShowCameraViewController.swift */; };
+		AD1FF1761E77670F00C46614 /* ShowMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1751E77670F00C46614 /* ShowMapViewController.swift */; };
 		AD1FF1791E77670F00C46614 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD1FF1771E77670F00C46614 /* Main.storyboard */; };
 		AD1FF17B1E77670F00C46614 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD1FF17A1E77670F00C46614 /* Assets.xcassets */; };
 		AD1FF17E1E77670F00C46614 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD1FF17C1E77670F00C46614 /* LaunchScreen.storyboard */; };
 		AD1FF1891E77670F00C46614 /* Pothole_HunterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1881E77670F00C46614 /* Pothole_HunterTests.swift */; };
 		AD1FF1941E77670F00C46614 /* Pothole_HunterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1931E77670F00C46614 /* Pothole_HunterUITests.swift */; };
+		AD1FF1A21E7767CB00C46614 /* ShowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1A11E7767CB00C46614 /* ShowListViewController.swift */; };
+		AD1FF1A41E7775DC00C46614 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1A31E7775DC00C46614 /* PhotoViewController.swift */; };
+		AD8AE71F1E77B4C100A9BD71 /* CameraContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8AE71E1E77B4C100A9BD71 /* CameraContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +40,8 @@
 /* Begin PBXFileReference section */
 		AD1FF16E1E77670F00C46614 /* Pothole Hunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pothole Hunter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD1FF1711E77670F00C46614 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AD1FF1731E77670F00C46614 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		AD1FF1751E77670F00C46614 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		AD1FF1731E77670F00C46614 /* ShowCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCameraViewController.swift; sourceTree = "<group>"; };
+		AD1FF1751E77670F00C46614 /* ShowMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMapViewController.swift; sourceTree = "<group>"; };
 		AD1FF1781E77670F00C46614 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AD1FF17A1E77670F00C46614 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD1FF17D1E77670F00C46614 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +52,9 @@
 		AD1FF18F1E77670F00C46614 /* Pothole HunterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pothole HunterUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD1FF1931E77670F00C46614 /* Pothole_HunterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pothole_HunterUITests.swift; sourceTree = "<group>"; };
 		AD1FF1951E77670F00C46614 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD1FF1A11E7767CB00C46614 /* ShowListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowListViewController.swift; sourceTree = "<group>"; };
+		AD1FF1A31E7775DC00C46614 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		AD8AE71E1E77B4C100A9BD71 /* CameraContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +106,12 @@
 			isa = PBXGroup;
 			children = (
 				AD1FF1711E77670F00C46614 /* AppDelegate.swift */,
-				AD1FF1731E77670F00C46614 /* FirstViewController.swift */,
-				AD1FF1751E77670F00C46614 /* SecondViewController.swift */,
+				AD1FF1731E77670F00C46614 /* ShowCameraViewController.swift */,
+				AD1FF1751E77670F00C46614 /* ShowMapViewController.swift */,
 				AD1FF1771E77670F00C46614 /* Main.storyboard */,
+				AD8AE71E1E77B4C100A9BD71 /* CameraContainerViewController.swift */,
+				AD1FF1A31E7775DC00C46614 /* PhotoViewController.swift */,
+				AD1FF1A11E7767CB00C46614 /* ShowListViewController.swift */,
 				AD1FF17A1E77670F00C46614 /* Assets.xcassets */,
 				AD1FF17C1E77670F00C46614 /* LaunchScreen.storyboard */,
 				AD1FF17F1E77670F00C46614 /* Info.plist */,
@@ -265,9 +274,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD1FF1761E77670F00C46614 /* SecondViewController.swift in Sources */,
+				AD1FF1761E77670F00C46614 /* ShowMapViewController.swift in Sources */,
 				AD1FF1721E77670F00C46614 /* AppDelegate.swift in Sources */,
-				AD1FF1741E77670F00C46614 /* FirstViewController.swift in Sources */,
+				AD1FF1741E77670F00C46614 /* ShowCameraViewController.swift in Sources */,
+				AD8AE71F1E77B4C100A9BD71 /* CameraContainerViewController.swift in Sources */,
+				AD1FF1A21E7767CB00C46614 /* ShowListViewController.swift in Sources */,
+				AD1FF1A41E7775DC00C46614 /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +530,7 @@
 				AD1FF19A1E77670F00C46614 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD1FF19B1E77670F00C46614 /* Build configuration list for PBXNativeTarget "Pothole HunterTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +539,7 @@
 				AD1FF19D1E77670F00C46614 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD1FF19E1E77670F00C46614 /* Build configuration list for PBXNativeTarget "Pothole HunterUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +548,7 @@
 				AD1FF1A01E77670F00C46614 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
