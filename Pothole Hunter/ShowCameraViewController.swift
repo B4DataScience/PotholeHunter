@@ -8,22 +8,39 @@
 
 import UIKit
 import AVFoundation
-class ShowCameraViewController: UIViewController {
+class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate {
     
-    /*//MARK: Properties
+    //var cameraConstraints = [NSLayoutConstraint]()
+    var takePhoto = false//to take only one photo from queue set it false once captured
+    //MARK: Properties
     let captureSession = AVCaptureSession()
     var previewLayer:CALayer!
     var camera:AVCaptureDevice!
-*/
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        /*if let cameraVC = storyboard?.instantiateViewController(withIdentifier: "CameraInterface"){
+            //self.addChildViewController(cameraVC)
+            //self.view.addSubview(
+            let leadingConstraint = cameraVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0.0)
+            let trailingConstraint = cameraVC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0.0)
+            let topConstraint = cameraVC.view.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0.0)
+            let bottomConstraint = cameraVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0.0)
+            cameraConstraints.append(contentsOf: [leadingConstraint,trailingConstraint,topConstraint,bottomConstraint])
+            NSLayoutConstraint.activate(cameraConstraints)
+            
+        }*/
+  
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        prepareCamera()
     }
     
     
     
     //MARK: Methods
-    /*
+    
     func prepareCamera(){
         captureSession.sessionPreset = AVCaptureSessionPresetPhoto
         if let avilableCamera = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .back).devices{
@@ -56,9 +73,57 @@ class ShowCameraViewController: UIViewController {
                 print("Cannot take camra output")
             }
             captureSession.commitConfiguration()
+            
+            let queue = DispatchQueue(label: "potholeCaptureQueue")
+            cameraOutput.setSampleBufferDelegate(self, queue: queue)
         }
     
-    }*/
+    }
+    
+    @IBAction func takePhoto(_ sender: UIButton) {
+        takePhoto = true
+    }
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        if takePhoto{
+            takePhoto = false//take only one photo
+            
+            if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
+                let photoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoVC") as! PhotoViewController
+                photoVC.potholePhoto = image
+                DispatchQueue.main.async {
+                    self.present(photoVC, animated: true, completion: {
+                        self.stopCaptureSession()
+                    })
+                }
+            }
+        }
+        
+    }
+    func getImageFromSampleBuffer (buffer:CMSampleBuffer) -> UIImage?{
+        if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {//taking image from buffer
+            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)//coreimage
+            let context = CIContext()//context to render the image
+            
+            let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))//setting dimension of image
+            
+            if let image = context.createCGImage(ciImage, from: imageRect) {//making image from core image
+                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
+            }
+            
+        }
+        
+        return nil
+    }
+    func stopCaptureSession () {
+        self.captureSession.stopRunning()
+        
+        if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
+            for input in inputs {
+                self.captureSession.removeInput(input)
+            }
+        }
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

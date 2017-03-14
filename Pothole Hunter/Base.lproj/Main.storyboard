@@ -9,6 +9,24 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Camera Container View Controller-->
+        <scene sceneID="f9b-x1-POn">
+            <objects>
+                <viewController storyboardIdentifier="CameraInterface" id="T1q-sb-adA" customClass="CameraContainerViewController" customModule="Pothole_Hunter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pnC-26-V9e"/>
+                        <viewControllerLayoutGuide type="bottom" id="pPG-BT-d0w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c1o-BH-oWS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VMR-hl-ID7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="-1041"/>
+        </scene>
         <!--First-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
@@ -21,20 +39,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5R-Jc-In3">
-                                <rect key="frame" x="0.0" y="28" width="375" height="590"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j7f-g1-sd1">
+                                <rect key="frame" x="172" y="588" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="first"/>
                                 <connections>
-                                    <segue destination="RS2-IW-t3O" kind="embed" id="YRQ-MN-h8c"/>
+                                    <action selector="takePhoto:" destination="9pv-A4-QxB" eventType="touchUpInside" id="nMm-Yx-Ea5"/>
                                 </connections>
-                            </containerView>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="v5R-Jc-In3" secondAttribute="trailing" id="9Xf-3j-7TY"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="v5R-Jc-In3" secondAttribute="bottom" id="Eod-35-4aV"/>
-                            <constraint firstItem="v5R-Jc-In3" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="8" id="hGS-AF-vv9"/>
-                            <constraint firstItem="v5R-Jc-In3" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="xQT-il-JKP"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                 </viewController>
@@ -69,21 +83,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VR8-ln-sEA">
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VR8-ln-sEA">
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
                                     <tabBarItem systemItem="favorites" id="dtc-b1-mYg"/>
                                     <tabBarItem systemItem="more" id="gFr-Nz-kVn"/>
                                 </items>
                             </tabBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x9P-qX-qAu">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x9P-qX-qAu">
+                                <rect key="frame" x="0.0" y="28" width="375" height="590"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="x9P-qX-qAu" firstAttribute="leading" secondItem="YnP-mR-jKN" secondAttribute="leading" id="Ahf-5m-eCk"/>
+                            <constraint firstItem="x9P-qX-qAu" firstAttribute="top" secondItem="edD-1n-hlY" secondAttribute="bottom" constant="8" id="Cyv-OR-iVt"/>
+                            <constraint firstItem="xqn-17-2hR" firstAttribute="top" secondItem="VR8-ln-sEA" secondAttribute="bottom" id="Vtv-DO-Kr2"/>
+                            <constraint firstItem="VR8-ln-sEA" firstAttribute="top" secondItem="x9P-qX-qAu" secondAttribute="bottom" id="dY8-t8-l3F"/>
+                            <constraint firstItem="VR8-ln-sEA" firstAttribute="leading" secondItem="YnP-mR-jKN" secondAttribute="leading" id="fUO-dd-L5w"/>
+                            <constraint firstAttribute="trailing" secondItem="x9P-qX-qAu" secondAttribute="trailing" id="h5X-Yd-fY8"/>
+                            <constraint firstAttribute="trailing" secondItem="VR8-ln-sEA" secondAttribute="trailing" id="jHD-9b-Ask"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="x9P-qX-qAu" id="9HM-R2-pdE"/>
@@ -91,7 +112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JDP-Th-s1g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1605.5999999999999" y="-321.58920539730138"/>
+            <point key="canvasLocation" x="1577" y="-322"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="p1z-sv-fhL">
@@ -251,20 +272,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
-        </scene>
-        <!--Camera Container View Controller-->
-        <scene sceneID="c6Z-MT-EQg">
-            <objects>
-                <viewController storyboardIdentifier="CameraContainer" id="RS2-IW-t3O" customClass="CameraContainerViewController" customModule="Pothole_Hunter" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KoW-G8-LBy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="590"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iqW-Bn-HMe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="750" y="-942"/>
         </scene>
     </scenes>
     <resources>
