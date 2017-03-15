@@ -18,6 +18,9 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
     let captureSession = AVCaptureSession()
     var previewLayer:CALayer!
     var camera:AVCaptureDevice!
+    var altitude:Double?
+    var longitude:Double?
+    var potholeImage:UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +51,15 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
         super.viewWillAppear(animated)
         prepareCamera()
     }
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.stopCaptureSession()
     }
     //MARK: CLLocation
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]
-        var altitude:Double = location.coordinate.latitude
-        var longitude:Double = location.coordinate.longitude
+        altitude = location.coordinate.latitude
+        longitude = location.coordinate.longitude
     }
     
     //MARK: Methods
@@ -105,19 +108,27 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
     }
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
         if takePhoto{
-            takePhoto = false//take only one photo
+            takePhoto = false//to take only one photo
             
-            if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
+                potholeImage = self.getImageFromSampleBuffer(buffer: sampleBuffer) /*{
                 let photoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoVC") as! PhotoViewController
-                photoVC.potholePhoto = image
-                DispatchQueue.main.async {
-                    //self.present(photoVC, animated: true, completion: {
-                     //   self.stopCaptureSession()
-                    //})
-                }
-            }
+                photoVC.potholePhoto = image*/
+            DispatchQueue.main.async {}
+            performSegue(withIdentifier: "EnterDetail", sender: self)
+                
+            
         }
         
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EnterDetail"{
+            if let destinatioVC = segue.destination as? PhotoViewController{
+                destinatioVC.potholePhoto = self.potholeImage
+                destinatioVC.altitude = self.altitude
+                destinatioVC.longitude = self.longitude
+                self.stopCaptureSession()
+            }
+        }
     }
     func getImageFromSampleBuffer (buffer:CMSampleBuffer) -> UIImage?{
         if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {//taking image from buffer

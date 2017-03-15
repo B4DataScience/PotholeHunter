@@ -12,14 +12,16 @@ import UIKit
 class PhotoViewController: UIViewController {
     //MARK: Properties
     var potholePhoto:UIImage?
-    
-    
-    
+    var altitude:Double?
+    var longitude:Double?
     @IBOutlet weak var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let avialableImage = potholePhoto{
-            imageView.image = avialableImage;
+        if let image = potholePhoto{
+            imageView.image = image
+        }
+        else{
+            print("coudnt aquire photo from showcameraViewController")
         }
         
     }
