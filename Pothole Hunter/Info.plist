@@ -45,7 +45,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>allow to capture pothole image.</string>
+	<string>Allow to capture pothole image.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow to mark a location of  pothole.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

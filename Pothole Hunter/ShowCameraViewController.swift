@@ -8,10 +8,12 @@
 
 import UIKit
 import AVFoundation
-class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate {
+import CoreLocation
+class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate,CLLocationManagerDelegate {
     
     //var cameraConstraints = [NSLayoutConstraint]()
     var takePhoto = false//to take only one photo from queue set it false once captured
+    let locationManager = CLLocationManager()
     //MARK: Properties
     let captureSession = AVCaptureSession()
     var previewLayer:CALayer!
@@ -19,6 +21,16 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse{
+            locationManager.requestWhenInUseAuthorization()
+        }
+        if CLLocationManager.locationServicesEnabled(){
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        }
+        
+        
         /*if let cameraVC = storyboard?.instantiateViewController(withIdentifier: "CameraInterface"){
             //self.addChildViewController(cameraVC)
             //self.view.addSubview(
@@ -36,8 +48,16 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
         super.viewWillAppear(animated)
         prepareCamera()
     }
-    
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.stopCaptureSession()
+    }
+    //MARK: CLLocation
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0]
+        var altitude:Double = location.coordinate.latitude
+        var longitude:Double = location.coordinate.longitude
+    }
     
     //MARK: Methods
     
@@ -91,9 +111,9 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
                 let photoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoVC") as! PhotoViewController
                 photoVC.potholePhoto = image
                 DispatchQueue.main.async {
-                    self.present(photoVC, animated: true, completion: {
-                        self.stopCaptureSession()
-                    })
+                    //self.present(photoVC, animated: true, completion: {
+                     //   self.stopCaptureSession()
+                    //})
                 }
             }
         }
