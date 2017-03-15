@@ -80,7 +80,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="hIv-Oc-iVx"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -89,7 +89,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="si4-pt-MYh"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -140,7 +140,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="capturedOn" destination="OjB-ux-7vK" id="sI1-mX-i2z"/>
                         <outlet property="imageView" destination="x9P-qX-qAu" id="A9K-go-OgL"/>
+                        <outlet property="locatedAt" destination="IaA-q1-6om" id="7jh-m9-ENm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JDP-Th-s1g" userLabel="First Responder" sceneMemberID="firstResponder"/>

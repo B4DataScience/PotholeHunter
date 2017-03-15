@@ -18,9 +18,9 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
     let captureSession = AVCaptureSession()
     var previewLayer:CALayer!
     var camera:AVCaptureDevice!
-    var altitude:Double?
-    var longitude:Double?
+    var location:CLLocation?
     var potholeImage:UIImage?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,15 +51,15 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
         super.viewWillAppear(animated)
         prepareCamera()
     }
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.stopCaptureSession()
+        self.locationManager.stopUpdatingLocation()
     }
     //MARK: CLLocation
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[0]
-        altitude = location.coordinate.latitude
-        longitude = location.coordinate.longitude
+        location = locations[0]
+        
     }
     
     //MARK: Methods
@@ -124,8 +124,8 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
         if segue.identifier == "EnterDetail"{
             if let destinatioVC = segue.destination as? PhotoViewController{
                 destinatioVC.potholePhoto = self.potholeImage
-                destinatioVC.altitude = self.altitude
-                destinatioVC.longitude = self.longitude
+                destinatioVC.location = self.location
+                destinatioVC.date = Date()
                 self.stopCaptureSession()
             }
         }
