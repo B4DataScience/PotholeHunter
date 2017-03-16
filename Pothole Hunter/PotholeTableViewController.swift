@@ -12,7 +12,7 @@ class PotholeTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tableView.reloadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,7 +24,10 @@ class PotholeTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -32,7 +35,7 @@ class PotholeTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return PotholeData.potholes.count-1
+        return PotholeData.potholes.count
     }
 
     
@@ -42,6 +45,8 @@ class PotholeTableViewController: UITableViewController {
             fatalError("The dequeued cell is not an instance of PotholeTableViewCell.")
         }
         let pothole = PotholeData.potholes[indexPath.row]
+        print("table cell creation")
+        print(pothole)
         let dateFormattor = DateFormatter()
         dateFormattor.timeStyle = .none
         dateFormattor.dateStyle = .medium
@@ -50,12 +55,15 @@ class PotholeTableViewController: UITableViewController {
         cell.severityLabel.text = "Severity: \(pothole.severity!) out of 10"
         if(pothole.severity! <= 4){
             cell.colorView.backgroundColor = .yellow
+            print("color yellow")
         }
         else if(pothole.severity! < 8){
             cell.colorView.backgroundColor = .blue
+            print("color blue")
         }
         else{
             cell.colorView.backgroundColor = .red
+            print("color red")
         }
 
         return cell

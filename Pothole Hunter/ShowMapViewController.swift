@@ -26,8 +26,8 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
         
       
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         for i in 0..<PotholeData.potholes.count{
             if let putMeOnMap = PotholeData.potholes[i].pLocation?.coordinate{
                 let annotation = MKPointAnnotation()
@@ -42,6 +42,9 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //locationManager.stopUpdatingLocation()
+    }
+    func getCurrentLocation(){
+    
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]

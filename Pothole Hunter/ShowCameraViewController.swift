@@ -9,10 +9,9 @@
 import UIKit
 import AVFoundation
 import CoreLocation
-class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate,CLLocationManagerDelegate {
+class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate,CLLocationManagerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate {
     
-    //var cameraConstraints = [NSLayoutConstraint]()
-    var takePhoto = false//to take only one photo from queue set it false once captured
+    
     let locationManager = CLLocationManager()
     //MARK: Properties
     let captureSession = AVCaptureSession()
@@ -20,7 +19,9 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
     var camera:AVCaptureDevice!
     var location:CLLocation?
     var potholeImage:UIImage?
+    let imagePicker = UIImagePickerController()
     
+    @IBOutlet weak var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,93 +33,11 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         }
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         
         
-        /*if let cameraVC = storyboard?.instantiateViewController(withIdentifier: "CameraInterface"){
-            //self.addChildViewController(cameraVC)
-            //self.view.addSubview(
-            let leadingConstraint = cameraVC.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0.0)
-            let trailingConstraint = cameraVC.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0.0)
-            let topConstraint = cameraVC.view.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0.0)
-            let bottomConstraint = cameraVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0.0)
-            cameraConstraints.append(contentsOf: [leadingConstraint,trailingConstraint,topConstraint,bottomConstraint])
-            NSLayoutConstraint.activate(cameraConstraints)
-            
-        }*/
   
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        prepareCamera()
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.stopCaptureSession()
-        //self.locationManager.stopUpdatingLocation()
-    }
-    //MARK: CLLocation
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations[0]
-        
-    }
-    
-    //MARK: Methods
-    
-    func prepareCamera(){
-        captureSession.sessionPreset = AVCaptureSessionPresetPhoto
-        if let avilableCamera = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .back).devices{
-            camera = avilableCamera.first
-        }
-        beginSession()
-    }
-    func beginSession(){
-        do{
-            let cameraInput = try AVCaptureDeviceInput(device: camera)
-            captureSession.addInput(cameraInput)
-        }
-        catch{
-            print(error.localizedDescription)
-        }
-        if let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) {
-            self.previewLayer = previewLayer
-            self.view.layer.addSublayer(self.previewLayer)
-            self.previewLayer.frame = self.view.layer.frame
-            captureSession.startRunning()
-            let cameraOutput = AVCaptureVideoDataOutput()
-            cameraOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString):NSNumber(value:kCVPixelFormatType_32BGRA)]
-            
-            cameraOutput.alwaysDiscardsLateVideoFrames = true
-            
-            if captureSession.canAddOutput(cameraOutput) {
-                captureSession.addOutput(cameraOutput)
-            }
-            else{
-                print("Cannot take camra output")
-            }
-            captureSession.commitConfiguration()
-            
-            let queue = DispatchQueue(label: "potholeCaptureQueue")
-            cameraOutput.setSampleBufferDelegate(self, queue: queue)
-        }
-    
-    }
-    
-    @IBAction func takePhoto(_ sender: UIButton) {
-        takePhoto = true
-    }
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
-        if takePhoto{
-            takePhoto = false//to take only one photo
-            
-                potholeImage = self.getImageFromSampleBuffer(buffer: sampleBuffer) /*{
-                let photoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoVC") as! PhotoViewController
-                photoVC.potholePhoto = image*/
-            DispatchQueue.main.async {self.stopCaptureSession()}
-            performSegue(withIdentifier: "EnterDetail", sender: self)
-                
-            
-        }
-        
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EnterDetail"{
@@ -126,38 +45,35 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
                 destinatioVC.potholePhoto = self.potholeImage
                 destinatioVC.location = self.location
                 destinatioVC.date = Date()
-                self.stopCaptureSession()
-                self.locationManager.stopUpdatingLocation()
+               // self.stopCaptureSession()
+                //self.locationManager.stopUpdatingLocation()
             }
         }
     }
-    func getImageFromSampleBuffer (buffer:CMSampleBuffer) -> UIImage?{
-        if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {//taking image from buffer
-            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)//coreimage
-            let context = CIContext()//context to render the image
-            
-            let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))//setting dimension of image
-            
-            if let image = context.createCGImage(ciImage, from: imageRect) {//making image from core image
-                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
-            }
-            
-        }
-        
-        return nil
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // Dismiss the picker if the user canceled.
+        dismiss(animated: true, completion: nil)
     }
-    func stopCaptureSession () {
-        self.captureSession.stopRunning()
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
-            for input in inputs {
-                self.captureSession.removeInput(input)
-            }
-        }
+        let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        potholeImage = selectedImage
         
+        // Dismiss the picker.
+        dismiss(animated: true, completion: nil)
+        self.imageView.image = potholeImage
     }
     @IBAction func reportMore(sender: UIStoryboardSegue){
         
+    }
+    
+    @IBAction func tappedForPhoto(_ sender: UITapGestureRecognizer) {
+        present(imagePicker, animated: true, completion: nil)
+    }
+    @IBAction func go(_ sender: UIButton) {
+        performSegue(withIdentifier: "EnterDetail", sender: self)
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
