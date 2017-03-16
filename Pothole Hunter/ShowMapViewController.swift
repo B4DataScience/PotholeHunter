@@ -22,6 +22,16 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        self.mapView.showsUserLocation = true
+        for i in 0...PotholeData.potholes.count{
+            if let putMeOnMap = PotholeData.potholes[i].pLocation?.coordinate{
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = putMeOnMap
+                annotation.title = PotholeData.potholes[i].address
+                annotation.subtitle = "Severity: \(PotholeData.potholes[i].severity!)"
+                mapView.addAnnotation(annotation)
+            }
+        }
       
     }
     override func viewWillDisappear(_ animated: Bool) {

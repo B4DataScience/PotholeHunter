@@ -181,7 +181,7 @@
                                 <state key="normal" title="Report Another"/>
                                 <connections>
                                     <action selector="reportmore:" destination="2Mp-CX-i7F" eventType="touchUpInside" id="7Hm-vy-8Jb"/>
-                                    <segue destination="Tig-WG-WDM" kind="unwind" unwindAction="reportMoreWithSender:" id="Rwx-hy-ikb"/>
+                                    <segue destination="Tig-WG-WDM" kind="unwind" identifier="unwindToMain" unwindAction="reportMoreWithSender:" id="Rwx-hy-ikb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -201,7 +201,7 @@
             </objects>
             <point key="canvasLocation" x="3503" y="-734"/>
         </scene>
-        <!--Item-->
+        <!--Pothole Table View Controller-->
         <scene sceneID="r7C-HM-f8A">
             <objects>
                 <tableViewController id="mvo-fV-sM2" customClass="PotholeTableViewController" customModule="Pothole_Hunter" customModuleProvider="target" sceneMemberID="viewController">
@@ -227,7 +227,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZUN-Gs-GBJ">
                                             <rect key="frame" x="21" y="8" width="338" height="81"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8B-mH-lhs">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8B-mH-lhs">
                                                     <rect key="frame" x="0.0" y="0.0" width="338" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -271,11 +271,11 @@
                             <outlet property="delegate" destination="mvo-fV-sM2" id="t9v-OJ-DiF"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="jMw-jA-B4i"/>
+                    <navigationItem key="navigationItem" id="jC5-p2-lTy"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hgu-Ip-Nd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-175.19999999999999" y="771.36431784107947"/>
+            <point key="canvasLocation" x="1686" y="770"/>
         </scene>
         <!--Show Detail View Controller-->
         <scene sceneID="IcR-H0-aw7">
@@ -350,7 +350,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqT-I3-OGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1654" y="743"/>
+            <point key="canvasLocation" x="2553" y="770"/>
         </scene>
         <!--Show Map View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -396,7 +396,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1653.5999999999999" y="-0.44977511244377816"/>
+            <point key="canvasLocation" x="1686" y="0.0"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -411,12 +411,12 @@
                     <connections>
                         <segue destination="q4w-pg-Bs5" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="9bD-s0-wpt" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="mvo-fV-sM2" kind="relationship" relationship="viewControllers" id="dPc-W9-yme"/>
+                        <segue destination="oEM-YE-xfO" kind="relationship" relationship="viewControllers" id="dPc-W9-yme"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-175" y="0.0"/>
+            <point key="canvasLocation" x="-750" y="182"/>
         </scene>
         <!--First-->
         <scene sceneID="gy4-H0-Yto">
@@ -455,6 +455,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPy-MT-LXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="0.0"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="pk1-Q8-ri6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oEM-YE-xfO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="jMw-jA-B4i"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1bR-l3-LAt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mvo-fV-sM2" kind="relationship" relationship="rootViewController" id="7KY-7G-XQx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WgT-bH-Q3J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="770"/>
         </scene>
     </scenes>
     <resources>
