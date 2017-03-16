@@ -102,11 +102,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Na3-qM-SHH">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="Na3-qM-SHH">
                                         <rect key="frame" x="-2" y="116" width="363" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="E82-7G-sXx"/>
                                         </constraints>
+                                        <color key="thumbTintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="pickingSeverity:" destination="nQO-af-0Ch" eventType="valueChanged" id="QLO-YA-cfn"/>
+                                        </connections>
                                     </slider>
                                 </subviews>
                             </stackView>
@@ -118,7 +122,7 @@
                                 </constraints>
                                 <state key="normal" title="Report"/>
                                 <connections>
-                                    <segue destination="2Mp-CX-i7F" kind="show" id="onC-v4-uFD"/>
+                                    <action selector="report:" destination="nQO-af-0Ch" eventType="touchUpInside" id="Xd7-aB-Af1"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x9P-qX-qAu">
@@ -143,16 +147,17 @@
                         <outlet property="capturedOn" destination="OjB-ux-7vK" id="sI1-mX-i2z"/>
                         <outlet property="imageView" destination="x9P-qX-qAu" id="A9K-go-OgL"/>
                         <outlet property="locatedAt" destination="IaA-q1-6om" id="7jh-m9-ENm"/>
+                        <segue destination="2Mp-CX-i7F" kind="show" identifier="SayThankYou" id="jKt-Fh-eWI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JDP-Th-s1g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2552.8000000000002" y="-734.48275862068976"/>
         </scene>
-        <!--View Controller-->
+        <!--Thank You View Controller-->
         <scene sceneID="p1z-sv-fhL">
             <objects>
-                <viewController storyboardIdentifier="Thank You VC" id="2Mp-CX-i7F" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Thank You VC" id="2Mp-CX-i7F" customClass="ThankYouViewController" customModule="Pothole_Hunter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="btk-Gb-4fh"/>
                         <viewControllerLayoutGuide type="bottom" id="6JJ-xP-FKx"/>
@@ -173,6 +178,10 @@
                                     <constraint firstAttribute="width" constant="181" id="4uT-Sr-kwg"/>
                                 </constraints>
                                 <state key="normal" title="Report Another"/>
+                                <connections>
+                                    <action selector="reportmore:" destination="2Mp-CX-i7F" eventType="touchUpInside" id="7Hm-vy-8Jb"/>
+                                    <segue destination="Tig-WG-WDM" kind="unwind" unwindAction="reportMoreWithSender:" id="Rwx-hy-ikb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -187,6 +196,7 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Fb-Cj-3dv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Tig-WG-WDM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3503" y="-734"/>
         </scene>
@@ -239,16 +249,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PMb-n8-LlM">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PMb-n8-LlM">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C30-DN-HMP">
+                                <rect key="frame" x="281" y="473" width="78" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Dw4-bR-9Rz"/>
+                                    <constraint firstAttribute="width" constant="78" id="igI-aH-fVa"/>
+                                </constraints>
+                                <state key="normal" title="Reposition"/>
+                                <connections>
+                                    <action selector="recenterTheMap:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="BVk-HU-7RZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PMb-n8-LlM" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="6LP-sr-2cJ"/>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="PMb-n8-LlM" secondAttribute="bottom" id="e2J-7m-zt6"/>
                             <constraint firstAttribute="trailing" secondItem="PMb-n8-LlM" secondAttribute="trailing" id="jRC-kw-19O"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="C30-DN-HMP" secondAttribute="trailing" id="rW0-Vq-mLO"/>
                             <constraint firstItem="PMb-n8-LlM" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="sR4-3s-PJr"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="C30-DN-HMP" secondAttribute="bottom" constant="115" id="tus-vV-k4p"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7vx-p7-h2Y"/>
@@ -258,7 +281,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1654" y="0.0"/>
+            <point key="canvasLocation" x="1653.5999999999999" y="-0.44977511244377816"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">

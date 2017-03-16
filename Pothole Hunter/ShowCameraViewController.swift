@@ -127,6 +127,7 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
                 destinatioVC.location = self.location
                 destinatioVC.date = Date()
                 self.stopCaptureSession()
+                self.locationManager.stopUpdatingLocation()
             }
         }
     }
@@ -153,6 +154,9 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
                 self.captureSession.removeInput(input)
             }
         }
+        
+    }
+    @IBAction func reportMore(sender: UIStoryboardSegue){
         
     }
     override func didReceiveMemoryWarning() {

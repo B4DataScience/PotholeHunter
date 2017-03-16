@@ -16,6 +16,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     var longitude:Double?
     var date:Date?
     var location: CLLocation?
+    var severity = 5
     let locationManager = CLLocationManager()
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var capturedOn: UILabel!
@@ -57,7 +58,35 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
             }
         }
     }
+    @IBAction func pickingSeverity(_ sender: UISlider) {
+        severity = Int(sender.value)
+        if(severity <= 4 ){
+            sender.tintColor = .yellow
+            sender.thumbTintColor = .yellow
+        }
+        else if(severity < 8 ){
+            sender.tintColor = .blue
+            sender.thumbTintColor = .blue
+        }
+        else{
+            sender.tintColor = .red
+            sender.thumbTintColor = .red
+        }
+    }
 
+    @IBAction func report(_ sender: UIButton) {
+        let pothole = Pothole()
+        pothole.potholeImage = self.potholePhoto
+        pothole.address = self.locatedAt.text
+        pothole.capturedOn = self.date
+        pothole.severity = self.severity
+        pothole.pLocation = self.location
+        let newElement = PotholeData()
+        newElement.update(newPothole: pothole)
+        performSegue(withIdentifier: "SayThankYou", sender: self)
+        
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
