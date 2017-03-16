@@ -9,16 +9,17 @@
 import Foundation
 import UIKit
 class PotholeData{
-    var potholes = [Pothole]()
+    static var potholes = [Pothole]()
     func update(newPothole: Pothole){
-        if(potholes.isEmpty){
-            potholes.append(newPothole)
+        if(PotholeData.potholes.isEmpty){
+            PotholeData.potholes.append(newPothole)
             
         }
         else{
-            for i in 0...potholes.count{
-                if(newPothole.capturedOn! >= potholes[i].capturedOn!){
-                    potholes.insert(newPothole, at: i)
+            for i in 0...PotholeData.potholes.count{
+                if(newPothole.capturedOn! >= PotholeData.potholes[i].capturedOn!){
+                    PotholeData.potholes.insert(newPothole, at: i)
+                    break
                 }
             }
         }
