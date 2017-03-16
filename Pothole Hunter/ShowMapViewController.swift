@@ -14,7 +14,7 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
     var reposition: Bool?
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         reposition = true
@@ -23,7 +23,12 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
-        for i in 0...PotholeData.potholes.count{
+        
+      
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        for i in 0..<PotholeData.potholes.count{
             if let putMeOnMap = PotholeData.potholes[i].pLocation?.coordinate{
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = putMeOnMap
@@ -32,11 +37,11 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
                 mapView.addAnnotation(annotation)
             }
         }
-      
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]

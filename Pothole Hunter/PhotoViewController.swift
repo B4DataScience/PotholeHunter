@@ -16,7 +16,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     var longitude:Double?
     var date:Date?
     var location: CLLocation?
-    var severity = 5
+    var severity:Int?
     let locationManager = CLLocationManager()
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var capturedOn: UILabel!
@@ -30,6 +30,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
         else{
             print("coudnt aquire photo from showcameraViewController")
         }
+        severity = 5
         let dateFormattor = DateFormatter()
         dateFormattor.timeStyle = .none
         dateFormattor.dateStyle = .medium
@@ -60,11 +61,11 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     }
     @IBAction func pickingSeverity(_ sender: UISlider) {
         severity = Int(sender.value)
-        if(severity <= 4 ){
+        if(severity! <= 4 ){
             sender.tintColor = .yellow
             sender.thumbTintColor = .yellow
         }
-        else if(severity < 8 ){
+        else if(severity! < 8 ){
             sender.tintColor = .blue
             sender.thumbTintColor = .blue
         }
@@ -81,10 +82,12 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
         pothole.capturedOn = self.date
         pothole.severity = self.severity
         pothole.pLocation = self.location
-        let newElement = PotholeData()
-        newElement.update(newPothole: pothole)
+        PotholeData.potholes.append(pothole)
         performSegue(withIdentifier: "SayThankYou", sender: self)
         
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     override func didReceiveMemoryWarning() {

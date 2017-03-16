@@ -54,7 +54,7 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.stopCaptureSession()
-        self.locationManager.stopUpdatingLocation()
+        //self.locationManager.stopUpdatingLocation()
     }
     //MARK: CLLocation
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -113,7 +113,7 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
                 potholeImage = self.getImageFromSampleBuffer(buffer: sampleBuffer) /*{
                 let photoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoVC") as! PhotoViewController
                 photoVC.potholePhoto = image*/
-            DispatchQueue.main.async {}
+            DispatchQueue.main.async {self.stopCaptureSession()}
             performSegue(withIdentifier: "EnterDetail", sender: self)
                 
             

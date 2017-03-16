@@ -24,6 +24,7 @@
 		AD8AE71F1E77B4C100A9BD71 /* CameraContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8AE71E1E77B4C100A9BD71 /* CameraContainerViewController.swift */; };
 		ADD607861E78E8440010BD67 /* Pothole.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD607851E78E8440010BD67 /* Pothole.swift */; };
 		ADD6078B1E7907060010BD67 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD6078A1E7907060010BD67 /* CoreLocation.framework */; };
+		ADE06E861E7AD48100A051F2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD607881E7902740010BD67 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADE06E861E7AD48100A051F2 /* MapKit.framework in Frameworks */,
 				ADD6078B1E7907060010BD67 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
