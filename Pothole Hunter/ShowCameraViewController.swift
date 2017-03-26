@@ -36,9 +36,15 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         
-        
   
     }
+    //MARK: LocationManager
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        location = locations[0]
+        
+    }
+
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EnterDetail"{
             if let destinatioVC = segue.destination as? PhotoViewController{
