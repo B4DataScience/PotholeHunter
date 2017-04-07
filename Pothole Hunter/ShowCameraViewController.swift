@@ -20,6 +20,7 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
     var location:CLLocation?
     var potholeImage:UIImage?
     let imagePicker = UIImagePickerController()
+    var date:Date?
     
     @IBOutlet weak var imageView: UIImageView!
 
@@ -50,7 +51,10 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
             if let destinatioVC = segue.destination as? PhotoViewController{
                 destinatioVC.potholePhoto = self.potholeImage
                 destinatioVC.location = self.location
-                destinatioVC.date = Date()
+                let dateFormattor = DateFormatter()
+                dateFormattor.timeStyle = .short
+                dateFormattor.dateStyle = .short
+                destinatioVC.date = dateFormattor.string(from: self.date!)
                // self.stopCaptureSession()
                 //self.locationManager.stopUpdatingLocation()
             }
@@ -69,6 +73,7 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
         self.imageView.image = potholeImage
+        self.date = Date()
     }
     @IBAction func reportMore(sender: UIStoryboardSegue){
         

@@ -14,7 +14,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     var potholePhoto:UIImage?
     var latitude:Double?
     var longitude:Double?
-    var date:Date?
+    var date:String?
     var location: CLLocation?
     var severity:Int?
     let locationManager = CLLocationManager()
@@ -31,10 +31,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
             print("coudnt aquire photo from showcameraViewController")
         }
         severity = 5
-        let dateFormattor = DateFormatter()
-        dateFormattor.timeStyle = .none
-        dateFormattor.dateStyle = .medium
-        capturedOn.text = "Captured on: " + dateFormattor.string(from: date!)
+        capturedOn.text = date
         assignAddress()
         
     }
@@ -81,7 +78,8 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
         pothole.address = self.locatedAt.text
         pothole.capturedOn = self.date
         pothole.severity = self.severity
-        pothole.pLocation = self.location
+        pothole.latitude = (self.location?.coordinate.latitude)!
+        pothole.longitude = (self.location?.coordinate.longitude)!
         PotholeData.potholes.append(pothole)
         performSegue(withIdentifier: "SayThankYou", sender: self)
         

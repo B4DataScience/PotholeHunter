@@ -47,11 +47,8 @@ class PotholeTableViewController: UITableViewController {
         let pothole = PotholeData.potholes[indexPath.row]
         print("table cell creation")
         print(pothole)
-        let dateFormattor = DateFormatter()
-        dateFormattor.timeStyle = .none
-        dateFormattor.dateStyle = .medium
         cell.addressLabel.text = pothole.address
-        cell.dateLabel.text = "Captured On:"+dateFormattor.string(from: pothole.capturedOn!)
+        cell.dateLabel.text = "Captured On:" + pothole.capturedOn!
         cell.severityLabel.text = "Severity: \(pothole.severity!) out of 10"
         if(pothole.severity! <= 4){
             cell.colorView.backgroundColor = .yellow

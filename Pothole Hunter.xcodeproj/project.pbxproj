@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		434B39418F47426D77946CBF /* Pods_Pothole_Hunter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC1127DB0C51FB0686FB1AD /* Pods_Pothole_Hunter.framework */; };
 		AD1FF1721E77670F00C46614 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1711E77670F00C46614 /* AppDelegate.swift */; };
 		AD1FF1741E77670F00C46614 /* ShowCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1731E77670F00C46614 /* ShowCameraViewController.swift */; };
 		AD1FF1761E77670F00C46614 /* ShowMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1FF1751E77670F00C46614 /* ShowMapViewController.swift */; };
@@ -46,6 +47,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		31F87764EE2170807F6B5AFD /* Pods-Pothole Hunter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pothole Hunter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pothole Hunter/Pods-Pothole Hunter.release.xcconfig"; sourceTree = "<group>"; };
+		89C6D17D1E911D86CE1345AA /* Pods-Pothole Hunter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pothole Hunter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pothole Hunter/Pods-Pothole Hunter.debug.xcconfig"; sourceTree = "<group>"; };
+		9DC1127DB0C51FB0686FB1AD /* Pods_Pothole_Hunter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pothole_Hunter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD1FF16E1E77670F00C46614 /* Pothole Hunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pothole Hunter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD1FF1711E77670F00C46614 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD1FF1731E77670F00C46614 /* ShowCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCameraViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 			files = (
 				ADE06E861E7AD48100A051F2 /* MapKit.framework in Frameworks */,
 				ADD6078B1E7907060010BD67 /* CoreLocation.framework in Frameworks */,
+				434B39418F47426D77946CBF /* Pods_Pothole_Hunter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +113,7 @@
 				AD1FF1921E77670F00C46614 /* Pothole HunterUITests */,
 				AD1FF16F1E77670F00C46614 /* Products */,
 				ADD607871E7902740010BD67 /* Frameworks */,
+				E6EBD8E0F2195ECEC853A3CD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,8 +173,18 @@
 			children = (
 				ADD6078A1E7907060010BD67 /* CoreLocation.framework */,
 				ADD607881E7902740010BD67 /* MapKit.framework */,
+				9DC1127DB0C51FB0686FB1AD /* Pods_Pothole_Hunter.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E6EBD8E0F2195ECEC853A3CD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				89C6D17D1E911D86CE1345AA /* Pods-Pothole Hunter.debug.xcconfig */,
+				31F87764EE2170807F6B5AFD /* Pods-Pothole Hunter.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,9 +194,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD1FF1981E77670F00C46614 /* Build configuration list for PBXNativeTarget "Pothole Hunter" */;
 			buildPhases = (
+				01D7D060A12F7B8EA90D8528 /* [CP] Check Pods Manifest.lock */,
 				AD1FF16A1E77670F00C46614 /* Sources */,
 				AD1FF16B1E77670F00C46614 /* Frameworks */,
 				AD1FF16C1E77670F00C46614 /* Resources */,
+				BA628D7862CCF92CE570A232 /* [CP] Embed Pods Frameworks */,
+				2C8559595E458B02B9F5FA2F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -303,6 +322,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		01D7D060A12F7B8EA90D8528 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2C8559595E458B02B9F5FA2F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pothole Hunter/Pods-Pothole Hunter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA628D7862CCF92CE570A232 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pothole Hunter/Pods-Pothole Hunter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AD1FF16A1E77670F00C46614 /* Sources */ = {
@@ -469,6 +536,7 @@
 		};
 		AD1FF1991E77670F00C46614 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89C6D17D1E911D86CE1345AA /* Pods-Pothole Hunter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6X5B26J782;
@@ -482,6 +550,7 @@
 		};
 		AD1FF19A1E77670F00C46614 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31F87764EE2170807F6B5AFD /* Pods-Pothole Hunter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6X5B26J782;

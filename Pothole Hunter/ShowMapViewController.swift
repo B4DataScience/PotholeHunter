@@ -29,13 +29,13 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         for i in 0..<PotholeData.potholes.count{
-            if let putMeOnMap = PotholeData.potholes[i].pLocation?.coordinate{
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = putMeOnMap
-                annotation.title = PotholeData.potholes[i].address
-                annotation.subtitle = "Severity: \(PotholeData.potholes[i].severity!)"
-                mapView.addAnnotation(annotation)
-            }
+            let putMeOnMap = CLLocationCoordinate2DMake(PotholeData.potholes[i].latitude!, PotholeData.potholes[i].longitude!)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = putMeOnMap
+            annotation.title = PotholeData.potholes[i].address
+            annotation.subtitle = "Severity: \(PotholeData.potholes[i].severity!)"
+            mapView.addAnnotation(annotation)
+            
         }
         
     }

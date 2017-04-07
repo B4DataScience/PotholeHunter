@@ -8,12 +8,13 @@
 
 import Foundation
 import UIKit
-import CoreLocation
 class Pothole{
     var potholeImage:UIImage?
-    var capturedOn:Date?
+    var capturedOn:String?
     var severity:Int?
     var address:String?
-    var pLocation : CLLocation?
+    var latitude:Double?
+    var longitude:Double?
+    
     
 }
