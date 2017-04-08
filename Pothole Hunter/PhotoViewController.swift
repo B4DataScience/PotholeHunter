@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreLocation
-
+import Firebase
 class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     //MARK: Properties
     var potholePhoto:UIImage?
@@ -73,14 +73,28 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     }
 
     @IBAction func report(_ sender: UIButton) {
-        let pothole = Pothole()
+        
+        //saving data to firebase database
+        let databaseRef = FIRDatabase.database().reference()
+        let id = databaseRef.child("pReport").childByAutoId().key
+        let pDictionary : [String: Any] = ["id": id, "address": self.locatedAt.text!, "time": self.date!, "severity": self.severity!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
+        databaseRef.child("pReport").child(id).setValue(pDictionary)
+        
+        //uploading image to firebase storage
+        let imageStorageRef = FIRStorage.storage().reference(withPath: "pImages/\(id).jpg")
+        let imageData = UIImageJPEGRepresentation(self.potholePhoto!, 0.5)
+        let uploadMetadata = FIRStorageMetadata()
+        uploadMetadata.contentType = "image/jpeg"
+        imageStorageRef.put(imageData!, metadata: uploadMetadata)
+        
+        /*let pothole = Pothole()
         pothole.potholeImage = self.potholePhoto
         pothole.address = self.locatedAt.text
         pothole.capturedOn = self.date
         pothole.severity = self.severity
         pothole.latitude = (self.location?.coordinate.latitude)!
         pothole.longitude = (self.location?.coordinate.longitude)!
-        PotholeData.potholes.append(pothole)
+        PotholeData.potholes.append(pothole)*/
         performSegue(withIdentifier: "SayThankYou", sender: self)
         
         
