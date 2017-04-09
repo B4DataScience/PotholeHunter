@@ -23,7 +23,6 @@
 		AD342AD41E7A2CD000869817 /* PotholeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD342AD31E7A2CD000869817 /* PotholeTableViewCell.swift */; };
 		AD342AD61E7A308500869817 /* PotholeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD342AD51E7A308500869817 /* PotholeTableViewController.swift */; };
 		AD4B733E1E882DFC00D83960 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD4B733D1E882DFC00D83960 /* GoogleService-Info.plist */; };
-		AD8AE71F1E77B4C100A9BD71 /* CameraContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8AE71E1E77B4C100A9BD71 /* CameraContainerViewController.swift */; };
 		ADD607861E78E8440010BD67 /* Pothole.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD607851E78E8440010BD67 /* Pothole.swift */; };
 		ADD6078B1E7907060010BD67 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD6078A1E7907060010BD67 /* CoreLocation.framework */; };
 		ADE06E861E7AD48100A051F2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD607881E7902740010BD67 /* MapKit.framework */; };
@@ -71,7 +70,6 @@
 		AD342AD31E7A2CD000869817 /* PotholeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PotholeTableViewCell.swift; sourceTree = "<group>"; };
 		AD342AD51E7A308500869817 /* PotholeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PotholeTableViewController.swift; sourceTree = "<group>"; };
 		AD4B733D1E882DFC00D83960 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		AD8AE71E1E77B4C100A9BD71 /* CameraContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraContainerViewController.swift; sourceTree = "<group>"; };
 		ADD607851E78E8440010BD67 /* Pothole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pothole.swift; sourceTree = "<group>"; };
 		ADD607881E7902740010BD67 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		ADD6078A1E7907060010BD67 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -141,7 +139,6 @@
 				AD342AD11E7A241700869817 /* ShowDetailViewController.swift */,
 				AD342ACD1E7A0DE300869817 /* PotholeData.swift */,
 				ADD607851E78E8440010BD67 /* Pothole.swift */,
-				AD8AE71E1E77B4C100A9BD71 /* CameraContainerViewController.swift */,
 				AD1FF17A1E77670F00C46614 /* Assets.xcassets */,
 				AD1FF17C1E77670F00C46614 /* LaunchScreen.storyboard */,
 				AD4B733D1E882DFC00D83960 /* GoogleService-Info.plist */,
@@ -383,7 +380,6 @@
 				AD1FF1721E77670F00C46614 /* AppDelegate.swift in Sources */,
 				AD1FF1741E77670F00C46614 /* ShowCameraViewController.swift in Sources */,
 				AD342AD61E7A308500869817 /* PotholeTableViewController.swift in Sources */,
-				AD8AE71F1E77B4C100A9BD71 /* CameraContainerViewController.swift in Sources */,
 				AD1FF1A41E7775DC00C46614 /* PhotoViewController.swift in Sources */,
 				AD342AD21E7A241700869817 /* ShowDetailViewController.swift in Sources */,
 				ADD607861E78E8440010BD67 /* Pothole.swift in Sources */,

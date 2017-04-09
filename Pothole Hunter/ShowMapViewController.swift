@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import MapKit 
+import MapKit
+import FirebaseDatabase
 class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
     
     //MARk: Properties
@@ -28,6 +29,16 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if(PotholeData.firstUpdate){
+            var databaseRef: FIRDatabaseReference?
+            var handleForUpdate: FIRDatabaseHandle?
+            databaseRef = FIRDatabase.database().reference()
+            handleForUpdate = databaseRef?.child("pReport").observe(.childAdded, with: { (snapshot) in
+                let pReport = snapshot.value as? [String : Any] ?? [:]
+                PotholeData.update(pReport: pReport)
+            })
+            PotholeData.firstUpdate = false
+        }
         for i in 0..<PotholeData.potholes.count{
             let putMeOnMap = CLLocationCoordinate2DMake(PotholeData.potholes[i].latitude!, PotholeData.potholes[i].longitude!)
             let annotation = MKPointAnnotation()

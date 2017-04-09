@@ -17,10 +17,12 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     var date:String?
     var location: CLLocation?
     var severity:Int?
+    var address:String?
     let locationManager = CLLocationManager()
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var capturedOn: UILabel!
     @IBOutlet weak var locatedAt: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +35,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
         severity = 5
         capturedOn.text = date
         assignAddress()
+        //self.locatedAt.text = "Location: " + address!
         
     }
     
@@ -46,9 +49,11 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
                 if let place = placemark?[0]
                 {
                     if let street = place.subThoroughfare{
+                        self.address = "\(street), \(place.thoroughfare!), \(place.locality!)."
                         self.locatedAt.text = "Location: \(street), \(place.thoroughfare!), \(place.locality!)."
                     }
                     else{
+                        self.address = "\(place.thoroughfare!), \(place.locality!)."
                         self.locatedAt.text = "Location: \(place.thoroughfare!), \(place.locality!)."
                     }
                     
@@ -56,6 +61,8 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
             }
         }
     }
+    
+    
     @IBAction func pickingSeverity(_ sender: UISlider) {
         severity = Int(sender.value)
         if(severity! <= 4 ){
@@ -77,7 +84,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
         //saving data to firebase database
         let databaseRef = FIRDatabase.database().reference()
         let id = databaseRef.child("pReport").childByAutoId().key
-        let pDictionary : [String: Any] = ["id": id, "address": self.locatedAt.text!, "time": self.date!, "severity": self.severity!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
+        let pDictionary : [String: Any] = ["id": id, "address": self.address!, "time": self.date!, "severity": self.severity!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
         databaseRef.child("pReport").child(id).setValue(pDictionary)
         
         //uploading image to firebase storage

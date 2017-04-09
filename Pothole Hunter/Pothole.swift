@@ -15,6 +15,7 @@ class Pothole{
     var address:String?
     var latitude:Double?
     var longitude:Double?
-    
+    var id:String?
+    var date:Date?
     
 }

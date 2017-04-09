@@ -7,16 +7,12 @@
 //
 
 import UIKit
-import AVFoundation
 import CoreLocation
-class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate,CLLocationManagerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate {
+class ShowCameraViewController: UIViewController,CLLocationManagerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate {
     
     
     let locationManager = CLLocationManager()
     //MARK: Properties
-    let captureSession = AVCaptureSession()
-    var previewLayer:CALayer!
-    var camera:AVCaptureDevice!
     var location:CLLocation?
     var potholeImage:UIImage?
     let imagePicker = UIImagePickerController()
@@ -51,10 +47,9 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
             if let destinatioVC = segue.destination as? PhotoViewController{
                 destinatioVC.potholePhoto = self.potholeImage
                 destinatioVC.location = self.location
-                let dateFormattor = DateFormatter()
-                dateFormattor.timeStyle = .short
-                dateFormattor.dateStyle = .short
-                destinatioVC.date = dateFormattor.string(from: self.date!)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM/dd/yy h:mm a Z"
+                destinatioVC.date = dateFormatter.string(from: self.date!)
                // self.stopCaptureSession()
                 //self.locationManager.stopUpdatingLocation()
             }
@@ -84,7 +79,6 @@ class ShowCameraViewController: UIViewController,AVCaptureVideoDataOutputSampleB
     }
     @IBAction func go(_ sender: UIButton) {
         performSegue(withIdentifier: "EnterDetail", sender: self)
-
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
