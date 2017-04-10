@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Firebase
 class PotholeData{
-    static var firstUpdate = true
     static var potholes = [Pothole]()
     static func update(pReport:Dictionary<String, Any>){
         let temp = Pothole()

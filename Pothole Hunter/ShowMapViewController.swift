@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 import FirebaseDatabase
-class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
+class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate{
     
     //MARk: Properties
     let locationManager = CLLocationManager()
@@ -29,15 +29,7 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if(PotholeData.firstUpdate){
-            var databaseRef: FIRDatabaseReference?
-            databaseRef = FIRDatabase.database().reference()
-            databaseRef?.child("pReport").observe(.childAdded, with: { (snapshot) in
-                let pReport = snapshot.value as? [String : Any] ?? [:]
-                PotholeData.update(pReport: pReport)
-            })
-            PotholeData.firstUpdate = false
-        }
+        
         for i in 0..<PotholeData.potholes.count{
             let putMeOnMap = CLLocationCoordinate2DMake(PotholeData.potholes[i].latitude!, PotholeData.potholes[i].longitude!)
             let annotation = MKPointAnnotation()
@@ -49,6 +41,9 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
         }
         
     }
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        
+//    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //locationManager.stopUpdatingLocation()

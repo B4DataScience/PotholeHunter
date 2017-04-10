@@ -28,15 +28,6 @@ class PotholeTableViewController: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if(PotholeData.firstUpdate){
-            var databaseRef: FIRDatabaseReference?
-            databaseRef = FIRDatabase.database().reference()
-            databaseRef?.child("pReport").observe(.childAdded, with: { (snapshot) in
-                let pReport = snapshot.value as? [String : Any] ?? [:]
-                PotholeData.update(pReport: pReport)
-            })
-            PotholeData.firstUpdate = false
-        }
         self.tableView.reloadData()
     }
     // MARK: - Table view data source
