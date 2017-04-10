@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class PotholeTableViewController: UITableViewController {
-
+    
+    var index:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.reloadData()
@@ -26,6 +28,15 @@ class PotholeTableViewController: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if(PotholeData.firstUpdate){
+            var databaseRef: FIRDatabaseReference?
+            databaseRef = FIRDatabase.database().reference()
+            databaseRef?.child("pReport").observe(.childAdded, with: { (snapshot) in
+                let pReport = snapshot.value as? [String : Any] ?? [:]
+                PotholeData.update(pReport: pReport)
+            })
+            PotholeData.firstUpdate = false
+        }
         self.tableView.reloadData()
     }
     // MARK: - Table view data source
@@ -66,7 +77,24 @@ class PotholeTableViewController: UITableViewController {
         return cell
     }
     
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.index = indexPath.row
+        performSegue(withIdentifier: "tableToDetail", sender: PotholeData.potholes[indexPath.row])
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tableToDetail"{
+            if let destinationVC = segue.destination as? ShowDetailViewController{
+                PotholeData.getImage(i: index!)
+                let pothole = PotholeData.potholes[self.index!]
+                destinationVC.date = "Captured on:" + pothole.capturedOn!
+                destinationVC.address = "Location:" + pothole.address!
+                destinationVC.severity = "Severity:" + String(pothole.severity!)
+                destinationVC.indexCalled = self.index!
+            }
+        }
+        
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

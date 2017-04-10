@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 class PotholeData{
     static var firstUpdate = true
     static var potholes = [Pothole]()
@@ -37,5 +38,21 @@ class PotholeData{
                 
             
         }
+    }
+    static func getImage(i:Int){
+        if(PotholeData.potholes[i].potholeImage == nil){
+            let id = PotholeData.potholes[i].id!
+            let imageRef = FIRStorage.storage().reference(withPath: "pImages/\(id).jpg")
+            imageRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
+                if let error = error {
+                    print("error in retriving image \(error)")
+                } else {
+                    // Data for Image is returned
+                    PotholeData.potholes[i].potholeImage = UIImage(data: data!)
+                }
+            }
+        
+        }
+        
     }
 }

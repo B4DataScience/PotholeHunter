@@ -89,7 +89,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
         
         //uploading image to firebase storage
         let imageStorageRef = FIRStorage.storage().reference(withPath: "pImages/\(id).jpg")
-        let imageData = UIImageJPEGRepresentation(self.potholePhoto!, 0.5)
+        let imageData = UIImageJPEGRepresentation(self.potholePhoto!, 0.3)
         let uploadMetadata = FIRStorageMetadata()
         uploadMetadata.contentType = "image/jpeg"
         imageStorageRef.put(imageData!, metadata: uploadMetadata)

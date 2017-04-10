@@ -31,9 +31,8 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate {
         super.viewDidAppear(animated)
         if(PotholeData.firstUpdate){
             var databaseRef: FIRDatabaseReference?
-            var handleForUpdate: FIRDatabaseHandle?
             databaseRef = FIRDatabase.database().reference()
-            handleForUpdate = databaseRef?.child("pReport").observe(.childAdded, with: { (snapshot) in
+            databaseRef?.child("pReport").observe(.childAdded, with: { (snapshot) in
                 let pReport = snapshot.value as? [String : Any] ?? [:]
                 PotholeData.update(pReport: pReport)
             })
