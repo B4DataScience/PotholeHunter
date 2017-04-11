@@ -12,9 +12,10 @@ class ThankYouViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationItem.setHidesBackButton(true, animated: true)
         // Do any additional setup after loading the view.
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         performSegue(withIdentifier: "unwindToMain", sender: self)

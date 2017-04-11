@@ -28,34 +28,17 @@ class PotholeData{
             potholes.append(temp)
         }
         else{
-            for i in stride(from: self.potholes.count, to:0, by:-1){
-                
-                    if(temp.date! >= potholes[i-1].date!){
-                        self.potholes.insert(temp, at: i)
-                        break
-                    }
-                
-            }
-                
+//            for i in stride(from: self.potholes.count, to:0, by:-1){
+//                
+//                    if(temp.date! >= potholes[i-1].date!){
+//                        self.potholes.insert(temp, at: i)
+//                        break
+//                    }
+//                
+//            }
+            PotholeData.potholes.insert(temp, at: 0)
             
         }
     }
-    static func getImage(i:Int){
-        if(PotholeData.potholes[i].potholeImage == nil){
-            let id = PotholeData.potholes[i].id!
-            let imageRef = FIRStorage.storage().reference(withPath: "pImages/\(id).jpg")
-            imageRef.data(withMaxSize: 1 * 1024 * 1024) { data, error in
-                if let error = error {
-                    print("error in retriving image \(error)")
-                } else {
-                    // Data for Image is returned
-                    DispatchQueue.main.async(execute: {
-                        PotholeData.potholes[i].potholeImage = UIImage(data: data!)
-                    })
-                }
-            }
-        
-        }
-        
-    }
+    
 }

@@ -75,7 +75,7 @@ class PotholeTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tableToDetail"{
             if let destinationVC = segue.destination as? ShowDetailViewController{
-                PotholeData.getImage(i: index!)
+
                 let pothole = PotholeData.potholes[self.index!]
                 destinationVC.date = pothole.capturedOn!
                 destinationVC.address = pothole.address!

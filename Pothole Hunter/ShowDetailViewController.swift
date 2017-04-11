@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class ShowDetailViewController: UIViewController {
     
     var indexCalled:Int?
@@ -32,6 +32,20 @@ class ShowDetailViewController: UIViewController {
         self.severityLabel.text = "Severity:" + self.severity!
         self.additionalInfoLabel.text = "Aditional info:" + additionalInfo!
         self.pCountLabel.text = "Reports made: \(String(describing: self.pCount!))"
+        if(PotholeData.potholes[self.indexCalled!].potholeImage == nil){
+            let id = PotholeData.potholes[self.indexCalled!].id!
+            let imageRef = FIRStorage.storage().reference(withPath: "pImages/\(id).jpg")
+            imageRef.data(withMaxSize: 2 * 1024 * 1024) { data, error in
+                if let error = error {
+                    print("error in retriving image \(error)")
+                } else {
+                    // Data for Image is returned
+                    PotholeData.potholes[self.indexCalled!].potholeImage = UIImage(data: data!)
+                    self.imageView.image = PotholeData.potholes[self.indexCalled!].potholeImage!
+                }
+            }
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {

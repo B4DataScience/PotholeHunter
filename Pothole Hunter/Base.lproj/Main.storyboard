@@ -61,6 +61,7 @@
                     <navigationItem key="navigationItem" id="x7d-se-6gI"/>
                     <connections>
                         <outlet property="imageView" destination="2lp-A6-xaN" id="Xu1-R6-gzb"/>
+                        <outlet property="proccedButton" destination="j7f-g1-sd1" id="RCj-ye-Vgn"/>
                         <segue destination="nQO-af-0Ch" kind="show" identifier="EnterDetail" id="F6F-Vg-MnM"/>
                     </connections>
                 </viewController>

@@ -71,7 +71,6 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let annotation = (sender as? MKAnnotationView)?.annotation as? AnnotationWithIdentifier{
-            PotholeData.getImage(i: (annotation.index)!)
             if let destinationVC = segue.destination as? ShowDetailViewController{
                 destinationVC.address = PotholeData.potholes[(annotation.index)!].address!
                 destinationVC.date = PotholeData.potholes[(annotation.index)!].capturedOn!

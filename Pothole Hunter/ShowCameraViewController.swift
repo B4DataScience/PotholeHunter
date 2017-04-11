@@ -17,11 +17,12 @@ class ShowCameraViewController: UIViewController,CLLocationManagerDelegate,UINav
     var potholeImage:UIImage?
     let imagePicker = UIImagePickerController()
     var date:Date?
-    
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var proccedButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        proccedButton.isEnabled = false
         if CLLocationManager.authorizationStatus() != .authorizedWhenInUse{
             locationManager.requestWhenInUseAuthorization()
         }
@@ -34,6 +35,10 @@ class ShowCameraViewController: UIViewController,CLLocationManagerDelegate,UINav
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         
   
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
     }
     //MARK: LocationManager
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -69,9 +74,10 @@ class ShowCameraViewController: UIViewController,CLLocationManagerDelegate,UINav
         dismiss(animated: true, completion: nil)
         self.imageView.image = potholeImage
         self.date = Date()
+        self.proccedButton.isEnabled = true
     }
     @IBAction func reportMore(sender: UIStoryboardSegue){
-        
+        self.imageView.image = #imageLiteral(resourceName: "defaultPhoto")
     }
     
     @IBAction func tappedForPhoto(_ sender: UITapGestureRecognizer) {
