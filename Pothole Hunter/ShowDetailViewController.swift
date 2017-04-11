@@ -14,10 +14,14 @@ class ShowDetailViewController: UIViewController {
     var date:String?
     var address:String?
     var severity:String?
+    var additionalInfo:String?
+    var pCount:Int?
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var LocationLabel: UILabel!
     @IBOutlet weak var severityLabel: UILabel!
+    @IBOutlet weak var pCountLabel: UILabel!
+    @IBOutlet weak var additionalInfoLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -26,6 +30,8 @@ class ShowDetailViewController: UIViewController {
         self.dateLabel.text = "Captured on:" + self.date!
         self.LocationLabel.text = "Location:" + self.address!
         self.severityLabel.text = "Severity:" + self.severity!
+        self.additionalInfoLabel.text = "Aditional info:" + additionalInfo!
+        self.pCountLabel.text = "Reports made: \(String(describing: self.pCount!))"
     }
 
     override func didReceiveMemoryWarning() {

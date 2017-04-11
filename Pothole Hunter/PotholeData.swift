@@ -17,6 +17,8 @@ class PotholeData{
         temp.address = pReport["address"] as? String
         temp.capturedOn = pReport["time"] as? String
         temp.severity = pReport["severity"] as? Int
+        temp.additionalInfo = pReport["additionalInfo"] as? String
+        temp.pCount = pReport["pCount"] as? Int
         temp.latitude = pReport["latitude"] as? Double
         temp.longitude = pReport["longitude"] as? Double
         let dateFormatter = DateFormatter()
@@ -47,7 +49,9 @@ class PotholeData{
                     print("error in retriving image \(error)")
                 } else {
                     // Data for Image is returned
-                    PotholeData.potholes[i].potholeImage = UIImage(data: data!)
+                    DispatchQueue.main.async(execute: {
+                        PotholeData.potholes[i].potholeImage = UIImage(data: data!)
+                    })
                 }
             }
         

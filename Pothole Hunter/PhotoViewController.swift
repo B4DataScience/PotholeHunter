@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 import Firebase
-class PhotoViewController: UIViewController,CLLocationManagerDelegate {
+class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFieldDelegate {
     //MARK: Properties
     var potholePhoto:UIImage?
     var latitude:Double?
@@ -18,14 +18,17 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     var location: CLLocation?
     var severity:Int?
     var address:String?
+    var additionalInfo:String?
+    var pCount:Int?
     let locationManager = CLLocationManager()
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var capturedOn: UILabel!
     @IBOutlet weak var locatedAt: UILabel!
+    @IBOutlet weak var additionalInfoTextfield: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        additionalInfoTextfield.delegate = self
         if let image = potholePhoto{
             imageView.image = image
         }
@@ -33,6 +36,8 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
             print("coudnt aquire photo from showcameraViewController")
         }
         severity = 5
+        self.additionalInfo = "Not provided"
+        self.pCount = 1
         capturedOn.text = date
         assignAddress()
         //self.locatedAt.text = "Location: " + address!
@@ -66,12 +71,12 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     @IBAction func pickingSeverity(_ sender: UISlider) {
         severity = Int(sender.value)
         if(severity! <= 4 ){
-            sender.tintColor = .yellow
-            sender.thumbTintColor = .yellow
+            sender.tintColor = .green
+            sender.thumbTintColor = .green
         }
         else if(severity! < 8 ){
-            sender.tintColor = .blue
-            sender.thumbTintColor = .blue
+            sender.tintColor = .purple
+            sender.thumbTintColor = .purple
         }
         else{
             sender.tintColor = .red
@@ -80,20 +85,39 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
     }
 
     @IBAction func report(_ sender: UIButton) {
+        var updateID = "asdasd"
+        var update:Bool
         
+        update = false
         //saving data to firebase database
         let databaseRef = FIRDatabase.database().reference()
-        let id = databaseRef.child("pReport").childByAutoId().key
-        let pDictionary : [String: Any] = ["id": id, "address": self.address!, "time": self.date!, "severity": self.severity!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
-        databaseRef.child("pReport").child(id).setValue(pDictionary)
+        for i in 0..<PotholeData.potholes.count{
+            if(self.address! == PotholeData.potholes[i].address!){
+                updateID = PotholeData.potholes[i].id!
+                self.pCount = PotholeData.potholes[i].pCount! + 1
+                PotholeData.potholes[i].pCount = pCount
+                update = true
+                break
+            }
+        }
+        if(update){
+            let pDictionary : [String: Any] = ["id": updateID, "address": self.address!, "time": self.date!, "severity": self.severity!, "additionalInfo": self.additionalInfo!, "pCount":self.pCount!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
+            databaseRef.child("pReport").child(updateID).setValue(pDictionary)
+        }
         
-        //uploading image to firebase storage
-        let imageStorageRef = FIRStorage.storage().reference(withPath: "pImages/\(id).jpg")
-        let imageData = UIImageJPEGRepresentation(self.potholePhoto!, 0.3)
-        let uploadMetadata = FIRStorageMetadata()
-        uploadMetadata.contentType = "image/jpeg"
-        imageStorageRef.put(imageData!, metadata: uploadMetadata)
+        else{
+            
+            let id = databaseRef.child("pReport").childByAutoId().key
+            let pDictionary : [String: Any] = ["id": id, "address": self.address!, "time": self.date!, "severity": self.severity!, "additionalInfo": self.additionalInfo!, "pCount":self.pCount!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
+            databaseRef.child("pReport").child(id).setValue(pDictionary)
         
+            //uploading image to firebase storage
+            let imageStorageRef = FIRStorage.storage().reference(withPath: "pImages/\(id).jpg")
+            let imageData = UIImageJPEGRepresentation(self.potholePhoto!, 0.3)
+            let uploadMetadata = FIRStorageMetadata()
+            uploadMetadata.contentType = "image/jpeg"
+            imageStorageRef.put(imageData!, metadata: uploadMetadata)
+        }
         /*let pothole = Pothole()
         pothole.potholeImage = self.potholePhoto
         pothole.address = self.locatedAt.text
@@ -113,7 +137,15 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func textFieldShouldReturn(_ additionalInfoTextfield: UITextField) -> Bool {
+        // Hide the keyboard.
+        additionalInfoTextfield.resignFirstResponder()
+        if(additionalInfoTextfield.text != nil){
+            self.additionalInfo = additionalInfoTextfield.text!
+        }
+        
+        return true
+    }
 
 
 

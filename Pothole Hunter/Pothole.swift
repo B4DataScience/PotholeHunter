@@ -17,5 +17,7 @@ class Pothole{
     var longitude:Double?
     var id:String?
     var date:Date?
+    var additionalInfo:String?
+    var pCount:Int?
     
 }

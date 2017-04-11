@@ -40,7 +40,7 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
             annotations.append(annotation)
         }
         mapView.addAnnotations(annotations)
-        mapView.showAnnotations(annotations, animated: true)
+        //mapView.showAnnotations(annotations, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -59,7 +59,7 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
         }
         view.pinTintColor = annotation?.pinColor()
-        view.animatesDrop = true
+        //view.animatesDrop = true
         
         return view
         
@@ -76,6 +76,8 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
                 destinationVC.address = PotholeData.potholes[(annotation.index)!].address!
                 destinationVC.date = PotholeData.potholes[(annotation.index)!].capturedOn!
                 destinationVC.severity = String(PotholeData.potholes[(annotation.index)!].severity!)
+                destinationVC.additionalInfo = PotholeData.potholes[(annotation.index)!].additionalInfo!
+                destinationVC.pCount = PotholeData.potholes[(annotation.index)!].pCount!
                 destinationVC.indexCalled = annotation.index!
             }
         }

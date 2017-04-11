@@ -80,6 +80,8 @@ class PotholeTableViewController: UITableViewController {
                 destinationVC.date = pothole.capturedOn!
                 destinationVC.address = pothole.address!
                 destinationVC.severity = String(pothole.severity!)
+                destinationVC.additionalInfo = pothole.additionalInfo!
+                destinationVC.pCount = pothole.pCount!
                 destinationVC.indexCalled = self.index!
             }
         }
