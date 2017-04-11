@@ -23,9 +23,9 @@ class ShowDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.image = PotholeData.potholes[self.indexCalled!].potholeImage
-        self.dateLabel.text = self.date
-        self.LocationLabel.text = self.address
-        self.severityLabel.text = self.severity
+        self.dateLabel.text = "Captured on:" + self.date!
+        self.LocationLabel.text = "Location:" + self.address!
+        self.severityLabel.text = "Severity:" + self.severity!
     }
 
     override func didReceiveMemoryWarning() {

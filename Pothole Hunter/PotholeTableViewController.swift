@@ -53,11 +53,11 @@ class PotholeTableViewController: UITableViewController {
         cell.dateLabel.text = "Captured On:" + pothole.capturedOn!
         cell.severityLabel.text = "Severity: \(pothole.severity!) out of 10"
         if(pothole.severity! <= 4){
-            cell.colorView.backgroundColor = .yellow
+            cell.colorView.backgroundColor = .green
             print("color yellow")
         }
         else if(pothole.severity! < 8){
-            cell.colorView.backgroundColor = .blue
+            cell.colorView.backgroundColor = .purple
             print("color blue")
         }
         else{
@@ -77,9 +77,9 @@ class PotholeTableViewController: UITableViewController {
             if let destinationVC = segue.destination as? ShowDetailViewController{
                 PotholeData.getImage(i: index!)
                 let pothole = PotholeData.potholes[self.index!]
-                destinationVC.date = "Captured on:" + pothole.capturedOn!
-                destinationVC.address = "Location:" + pothole.address!
-                destinationVC.severity = "Severity:" + String(pothole.severity!)
+                destinationVC.date = pothole.capturedOn!
+                destinationVC.address = pothole.address!
+                destinationVC.severity = String(pothole.severity!)
                 destinationVC.indexCalled = self.index!
             }
         }
