@@ -103,6 +103,12 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
         if(update){
             let pDictionary : [String: Any] = ["id": updateID, "address": self.address!, "time": self.date!, "severity": self.severity!, "additionalInfo": self.additionalInfo!, "pCount":self.pCount!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
             databaseRef.child("pReport").child(updateID).setValue(pDictionary)
+            //uploading image to firebase storage
+            let imageStorageRef = FIRStorage.storage().reference(withPath: "pImages/\(updateID).jpg")
+            let imageData = UIImageJPEGRepresentation(self.potholePhoto!, 0.3)
+            let uploadMetadata = FIRStorageMetadata()
+            uploadMetadata.contentType = "image/jpeg"
+            imageStorageRef.put(imageData!, metadata: uploadMetadata)
         }
         
         else{

@@ -26,6 +26,7 @@
 		AD4B733E1E882DFC00D83960 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD4B733D1E882DFC00D83960 /* GoogleService-Info.plist */; };
 		ADD607861E78E8440010BD67 /* Pothole.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD607851E78E8440010BD67 /* Pothole.swift */; };
 		ADF5F2A11E9AFD360083D494 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD607881E7902740010BD67 /* MapKit.framework */; };
+		ADFE6AFD1E9D505400EED697 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADD6078A1E7907060010BD67 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADFE6AFD1E9D505400EED697 /* CoreLocation.framework in Frameworks */,
 				ADF5F2A11E9AFD360083D494 /* MapKit.framework in Frameworks */,
 				434B39418F47426D77946CBF /* Pods_Pothole_Hunter.framework in Frameworks */,
 			);

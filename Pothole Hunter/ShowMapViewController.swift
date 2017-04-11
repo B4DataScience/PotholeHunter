@@ -40,11 +40,14 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
             annotations.append(annotation)
         }
         mapView.addAnnotations(annotations)
-        //mapView.showAnnotations(annotations, animated: true)
+        mapView.showAnnotations(annotations, animated: true)
+        //mapView.mapType = .hybrid
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
+        
+        if (annotation .isKind(of: MKUserLocation.self)){return nil}
         let annotation = annotation as? AnnotationWithIdentifier
         let identifier = "pin"
         let view: MKPinAnnotationView
@@ -98,7 +101,7 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
             mapView.setRegion(region, animated: true)
             reposition = false
         }
-        self.mapView.showsUserLocation = true 
+        
     }
     @IBAction func recenterTheMap(_ sender: UIButton) {
         reposition = true
