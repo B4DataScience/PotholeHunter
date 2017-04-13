@@ -24,20 +24,19 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var capturedOn: UILabel!
     @IBOutlet weak var locatedAt: UILabel!
-    @IBOutlet weak var additionalInfoTextfield: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var reportButton: UIButton!
-    
+    @IBOutlet weak var additionalInfoTextView: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
         assignAddress()
         activityIndicator.startAnimating()
         reportButton.isEnabled = false
-        additionalInfoTextfield.delegate = self
         if let image = potholePhoto{
             imageView.image = image
         }
         else{
+            
             print("coudnt aquire photo from showcameraViewController")
         }
         let roundPrecision:Double = 10000 //this will round the cordinates 
@@ -47,7 +46,12 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
         self.additionalInfo = "Not provided"
         self.pCount = 1
         capturedOn.text = date
-        assignAddress()
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneClicked))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([flexibleSpace,doneButton], animated: true)
+        additionalInfoTextView.inputAccessoryView = toolBar
         //self.locatedAt.text = "Location: " + address!
         
     }
@@ -159,7 +163,9 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
         
         return true
     }
-
+    func doneClicked(){
+        view.endEditing(true)
+    }
 
 
 }
