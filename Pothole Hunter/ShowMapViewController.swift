@@ -41,9 +41,13 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
         }
         mapView.addAnnotations(annotations)
         mapView.showAnnotations(annotations, animated: true)
-        //mapView.mapType = .hybrid
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        mapView.removeAnnotations(self.annotations)
+        
+    }
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         
@@ -62,7 +66,7 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
         }
         view.pinTintColor = annotation?.pinColor()
-        //view.animatesDrop = true
+        view.animatesDrop = true
         
         return view
         
@@ -76,7 +80,8 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
         if let annotation = (sender as? MKAnnotationView)?.annotation as? AnnotationWithIdentifier{
             if let destinationVC = segue.destination as? ShowDetailViewController{
                 destinationVC.address = PotholeData.potholes[(annotation.index)!].address!
-                destinationVC.date = PotholeData.potholes[(annotation.index)!].capturedOn!
+                destinationVC.firstCapturedOn = PotholeData.potholes[(annotation.index)!].FirstCapturedOn!
+                destinationVC.lastCapturedOn = PotholeData.potholes[(annotation.index)!].LastCapturedOn!
                 destinationVC.severity = String(PotholeData.potholes[(annotation.index)!].severity!)
                 destinationVC.additionalInfo = PotholeData.potholes[(annotation.index)!].additionalInfo!
                 destinationVC.pCount = PotholeData.potholes[(annotation.index)!].pCount!
@@ -85,10 +90,7 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //locationManager.stopUpdatingLocation()
-    }
+    
     func getCurrentLocation(){
     
     }
@@ -110,7 +112,7 @@ class ShowMapViewController: UIViewController,CLLocationManagerDelegate,MKMapVie
         super.didReceiveMemoryWarning()
         
     }
-
+    
 
 }
 

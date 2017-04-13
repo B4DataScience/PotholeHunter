@@ -25,9 +25,14 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
     @IBOutlet weak var capturedOn: UILabel!
     @IBOutlet weak var locatedAt: UILabel!
     @IBOutlet weak var additionalInfoTextfield: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var reportButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        assignAddress()
+        activityIndicator.startAnimating()
+        reportButton.isEnabled = false
         additionalInfoTextfield.delegate = self
         if let image = potholePhoto{
             imageView.image = image
@@ -35,6 +40,9 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
         else{
             print("coudnt aquire photo from showcameraViewController")
         }
+        let roundPrecision:Double = 10000 //this will round the cordinates 
+        self.latitude = Double(round((self.location?.coordinate.latitude)! * roundPrecision)/roundPrecision)
+        self.longitude = Double(round((self.location?.coordinate.longitude)! * roundPrecision)/roundPrecision)
         severity = 5
         self.additionalInfo = "Not provided"
         self.pCount = 1
@@ -48,7 +56,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
         locationManager.delegate = self
         CLGeocoder().reverseGeocodeLocation(location!) { (placemark, error) in
             if error != nil{
-                print ("Error in revergeocoding")
+                print ("Error in reverse geocoding")
             }
             else{
                 if let place = placemark?[0]
@@ -64,6 +72,8 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
                     
                 }
             }
+            self.activityIndicator.stopAnimating()
+            self.reportButton.isEnabled = true
         }
     }
     
@@ -85,23 +95,27 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
     }
 
     @IBAction func report(_ sender: UIButton) {
-        var updateID = "asdasd"
-        var update:Bool
+        var updateID = "default value"
+        var firstCapturedOn = "first captured default"
+        var updateExisting:Bool
         
-        update = false
+        updateExisting = false
         //saving data to firebase database
         let databaseRef = FIRDatabase.database().reference()
         for i in 0..<PotholeData.potholes.count{
-            if(self.address! == PotholeData.potholes[i].address!){
+            if((self.latitude! == PotholeData.potholes[i].latitude!) && (self.longitude == PotholeData.potholes[i].longitude)){
                 updateID = PotholeData.potholes[i].id!
                 self.pCount = PotholeData.potholes[i].pCount! + 1
-                PotholeData.potholes[i].pCount = pCount
-                update = true
+                if(self.additionalInfo == "Not Provided"){
+                    self.additionalInfo = PotholeData.potholes[i].additionalInfo!
+                }
+                firstCapturedOn = PotholeData.potholes[i].FirstCapturedOn!
+                updateExisting = true
                 break
             }
         }
-        if(update){
-            let pDictionary : [String: Any] = ["id": updateID, "address": self.address!, "time": self.date!, "severity": self.severity!, "additionalInfo": self.additionalInfo!, "pCount":self.pCount!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
+        if(updateExisting){
+            let pDictionary : [String: Any] = ["id": updateID, "address": self.address!, "firstCapturedOn":firstCapturedOn, "lastCapturedOn": self.date!, "severity": self.severity!, "additionalInfo": self.additionalInfo!, "pCount":self.pCount!, "latitude": (self.latitude)!, "longitude": (self.longitude)!]
             databaseRef.child("pReport").child(updateID).setValue(pDictionary)
             //uploading image to firebase storage
             let imageStorageRef = FIRStorage.storage().reference(withPath: "pImages/\(updateID).jpg")
@@ -114,7 +128,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
         else{
             
             let id = databaseRef.child("pReport").childByAutoId().key
-            let pDictionary : [String: Any] = ["id": id, "address": self.address!, "time": self.date!, "severity": self.severity!, "additionalInfo": self.additionalInfo!, "pCount":self.pCount!, "latitude": (self.location?.coordinate.latitude)!, "longitude": (self.location?.coordinate.longitude)!]
+            let pDictionary : [String: Any] = ["id": id, "address": self.address!, "firstCapturedOn": self.date!, "lastCapturedOn": self.date!, "severity": self.severity!, "additionalInfo": self.additionalInfo!, "pCount":self.pCount!, "latitude": (self.latitude)!, "longitude": (self.longitude)!]
             databaseRef.child("pReport").child(id).setValue(pDictionary)
         
             //uploading image to firebase storage
@@ -124,14 +138,7 @@ class PhotoViewController: UIViewController,CLLocationManagerDelegate,UITextFiel
             uploadMetadata.contentType = "image/jpeg"
             imageStorageRef.put(imageData!, metadata: uploadMetadata)
         }
-        /*let pothole = Pothole()
-        pothole.potholeImage = self.potholePhoto
-        pothole.address = self.locatedAt.text
-        pothole.capturedOn = self.date
-        pothole.severity = self.severity
-        pothole.latitude = (self.location?.coordinate.latitude)!
-        pothole.longitude = (self.location?.coordinate.longitude)!
-        PotholeData.potholes.append(pothole)*/
+        
         performSegue(withIdentifier: "SayThankYou", sender: self)
         
         

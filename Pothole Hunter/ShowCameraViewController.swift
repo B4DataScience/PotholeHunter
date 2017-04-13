@@ -55,7 +55,9 @@ class ShowCameraViewController: UIViewController,CLLocationManagerDelegate,UINav
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM/dd/yy h:mm a Z"
                 destinatioVC.date = dateFormatter.string(from: self.date!)
-               // self.stopCaptureSession()
+                
+                
+               
                 //self.locationManager.stopUpdatingLocation()
             }
         }

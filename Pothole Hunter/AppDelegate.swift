@@ -21,10 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var databaseRef: FIRDatabaseReference?
         databaseRef = FIRDatabase.database().reference()
         databaseRef?.child("pReport").observe(.childAdded, with: { (snapshot) in
-        let pReport = snapshot.value as? [String : Any] ?? [:]
-        PotholeData.update(pReport: pReport)
+            let pReport = snapshot.value as? [String : Any] ?? [:]
+            PotholeData.potholeAdded(pReport: pReport)
         })
-            
+        
+        databaseRef?.child("pReport").observe(.childChanged, with: { (snapshot) in
+            let pReport = snapshot.value as? [String : Any] ?? [:]
+            PotholeData.potholeUpdate(pReport: pReport)
+        })
         
         return true
     }

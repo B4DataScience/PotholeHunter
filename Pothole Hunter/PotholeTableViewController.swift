@@ -12,8 +12,13 @@ import Firebase
 class PotholeTableViewController: UITableViewController {
     
     var index:Int?
+    var refresher:UIRefreshControl!
     override func viewDidLoad() {
         super.viewDidLoad()
+        refresher = UIRefreshControl()
+        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresher.addTarget(self, action: #selector(PotholeTableViewController.refresh), for: UIControlEvents.valueChanged)
+        self.tableView.addSubview(refresher)
         self.tableView.reloadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -50,7 +55,7 @@ class PotholeTableViewController: UITableViewController {
         print("table cell creation")
         print(pothole)
         cell.addressLabel.text = pothole.address
-        cell.dateLabel.text = "Captured On:" + pothole.capturedOn!
+        cell.dateLabel.text = "Captured On:" + pothole.FirstCapturedOn!
         cell.severityLabel.text = "Severity: \(pothole.severity!) out of 10"
         if(pothole.severity! <= 4){
             cell.colorView.backgroundColor = .green
@@ -77,60 +82,22 @@ class PotholeTableViewController: UITableViewController {
             if let destinationVC = segue.destination as? ShowDetailViewController{
 
                 let pothole = PotholeData.potholes[self.index!]
-                destinationVC.date = pothole.capturedOn!
+                destinationVC.firstCapturedOn = pothole.FirstCapturedOn!
+                destinationVC.lastCapturedOn = pothole.LastCapturedOn!
                 destinationVC.address = pothole.address!
                 destinationVC.severity = String(pothole.severity!)
                 destinationVC.additionalInfo = pothole.additionalInfo!
                 destinationVC.pCount = pothole.pCount!
                 destinationVC.indexCalled = self.index!
+        
             }
         }
         
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func refresh(){
+        self.tableView.reloadData()
+        refresher.endRefreshing()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

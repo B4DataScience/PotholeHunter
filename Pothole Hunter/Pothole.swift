@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 class Pothole{
     var potholeImage:UIImage?
-    var capturedOn:String?
+    var FirstCapturedOn:String?
+    var LastCapturedOn:String?
     var severity:Int?
     var address:String?
     var latitude:Double?
